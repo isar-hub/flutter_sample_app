@@ -1,0 +1,91 @@
+class Images {
+  String? id;
+  String? createdAt;
+  int? width;
+  int? height;
+  String? color;
+  int? likes;
+  bool? likedByUser;
+  String? description;
+  Urls? urls;
+  Links? links;
+
+  Images(
+      {this.id,
+      this.createdAt,
+      this.width,
+      this.height,
+      this.color,
+      this.likes,
+      this.likedByUser,
+      this.description,
+      this.urls,
+      this.links});
+
+  Images.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    createdAt = json['created_at'];
+    width = json['width'];
+    height = json['height'];
+    color = json['color'];
+    likes = json['likes'];
+    likedByUser = json['liked_by_user'];
+    description = json['description'];
+    urls = json['urls'] != null ? new Urls.fromJson(json['urls']) : null;
+    links = json['links'] != null ? new Links.fromJson(json['links']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['created_at'] = this.createdAt;
+    data['width'] = this.width;
+    data['height'] = this.height;
+    data['color'] = this.color;
+    data['likes'] = this.likes;
+    data['liked_by_user'] = this.likedByUser;
+    data['description'] = this.description;
+    if (this.urls != null) {
+      data['urls'] = this.urls!.toJson();
+    }
+    if (this.links != null) {
+      data['links'] = this.links!.toJson();
+    }
+    return data;
+  }
+}
+
+class Urls {
+  String? regular;
+
+  Urls({this.regular});
+
+  Urls.fromJson(Map<String, dynamic> json) {
+    regular = json['regular'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['regular'] = this.regular;
+    return data;
+  }
+}
+
+class Links {
+  String? download;
+  String? downloadLocation;
+
+  Links({this.download, this.downloadLocation});
+
+  Links.fromJson(Map<String, dynamic> json) {
+    download = json['download'];
+    downloadLocation = json['download_location'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['download'] = this.download;
+    data['download_location'] = this.downloadLocation;
+    return data;
+  }
+}
