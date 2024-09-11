@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sample_project/src/ui/image_screen.dart';
 
 
 class App extends StatelessWidget {
@@ -10,7 +11,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData.dark(),
-        home: Scaffold(
+        home: const Scaffold(
           body: ImageScreen(),
         ),
       );

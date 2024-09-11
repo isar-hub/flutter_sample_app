@@ -31,25 +31,25 @@ class Images {
     likes = json['likes'];
     likedByUser = json['liked_by_user'];
     description = json['description'];
-    urls = json['urls'] != null ? new Urls.fromJson(json['urls']) : null;
-    links = json['links'] != null ? new Links.fromJson(json['links']) : null;
+    urls = json['urls'] != null ? Urls.fromJson(json['urls']) : null;
+    links = json['links'] != null ? Links.fromJson(json['links']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['created_at'] = this.createdAt;
-    data['width'] = this.width;
-    data['height'] = this.height;
-    data['color'] = this.color;
-    data['likes'] = this.likes;
-    data['liked_by_user'] = this.likedByUser;
-    data['description'] = this.description;
-    if (this.urls != null) {
-      data['urls'] = this.urls!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['created_at'] = createdAt;
+    data['width'] = width;
+    data['height'] = height;
+    data['color'] = color;
+    data['likes'] = likes;
+    data['liked_by_user'] = likedByUser;
+    data['description'] = description;
+    if (urls != null) {
+      data['urls'] = urls!.toJson();
     }
-    if (this.links != null) {
-      data['links'] = this.links!.toJson();
+    if (links != null) {
+      data['links'] = links!.toJson();
     }
     return data;
   }
@@ -65,8 +65,8 @@ class Urls {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['regular'] = this.regular;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['regular'] = regular;
     return data;
   }
 }
@@ -83,9 +83,9 @@ class Links {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['download'] = this.download;
-    data['download_location'] = this.downloadLocation;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['download'] = download;
+    data['download_location'] = downloadLocation;
     return data;
   }
 }
