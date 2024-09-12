@@ -37,6 +37,7 @@ dependencies:
   http: ^1.2.2
   rxdart: ^0.28.0
   flutter_dotenv: ^5.1.0
+  image_downloader: ^0.31.0
 
 dev_dependencies:
   flutter_test:

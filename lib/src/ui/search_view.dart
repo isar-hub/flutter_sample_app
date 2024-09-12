@@ -1,63 +1,62 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:sample_project/src/blocs/search_bloc.dart';
+
 import '../blocs/images_bloc.dart';
 import '../models/images.dart';
 import '../resources/repository.dart';
 import 'image_details.dart';
 
+class SearchView extends StatefulWidget {
+  const SearchView({super.key, required this.query});
 
-
-class ImageView extends StatefulWidget {
-  const ImageView({super.key,});
-
+  final String query;
 
   @override
-  State<ImageView> createState() => _ImageViewState();
+  State<SearchView> createState() => _ImageViewState();
 }
 
-class _ImageViewState extends State<ImageView> {
-
-  late ImageBloc _imageBloc;
+class _ImageViewState extends State<SearchView> {
+  late SearchBloc _searchBloc;
 
   final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-
-    _imageBloc = ImageBloc(repository: Repository());
-
-    _imageBloc.fetchImages(1);
+    _searchBloc = SearchBloc(repository: Repository());
+    _searchBloc.fetchImages(1, widget.query);
 
     // Add a listener for pagination
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-     _imageBloc.fetchNextPage();
-
+        _searchBloc.fetchNextPage();
       }
     });
   }
 
-
-
   @override
   void dispose() {
     _scrollController.dispose();
-    _imageBloc.dispose();
+    _searchBloc.dispose();
     super.dispose();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Text('Home',style: TextStyle(fontSize: 18,),),
+        const Text(
+          'Search',
+          style: TextStyle(
+            fontSize: 18,
+          ),
+        ),
         // Loading Indicator
         StreamBuilder<bool>(
-          stream: _imageBloc.isLoading,
+          stream: _searchBloc.isLoading,
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.data == true) {
               return const LinearProgressIndicator();
@@ -69,7 +68,7 @@ class _ImageViewState extends State<ImageView> {
         // Image List
         Expanded(
           child: StreamBuilder<List<Images>>(
-            stream: _imageBloc.allImages  ,
+            stream: _searchBloc.allImages,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 final images = snapshot.data!;
@@ -94,13 +93,11 @@ class _ImageViewState extends State<ImageView> {
                       ),
                     );
                   },
-                  gridDelegate:
-                  const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3, // Number of items per row
                     crossAxisSpacing:
-                    0.0, // Horizontal space between grid items
-                    mainAxisSpacing:
-                    0.0, // Vertical space between grid items
+                        0.0, // Horizontal space between grid items
+                    mainAxisSpacing: 0.0, // Vertical space between grid items
                   ),
                 );
               } else if (snapshot.hasError) {
