@@ -22,7 +22,7 @@ class ImageApiProvider {
       throw Exception('Failed to Load Images');
     }
   }
-  Future<SearchImages> fetchSearchResult({required int page, required String query}) async {
+  Future<SearchImages>  fetchSearchResult({required int page, required String query}) async {
     if (query.trim().isEmpty) {
       log("Query is empty");
       throw Exception('Search query cannot be empty');
